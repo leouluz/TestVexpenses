@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Text, View, Dimensions, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native'
+import { View, Dimensions, StyleSheet, Image, TextInput } from 'react-native'
 import Logo from '../img/logoC.png';
-import PlusButton from '../img/plusbutton.png';
 
 const { width } = Dimensions.get('window')
 
@@ -14,31 +13,33 @@ export default class header extends Component {
           <TextInput
             autoCapitalize="none"
             autoCorrect={false}
-            placeholder="Search"
+            placeholder="Search / Name: Luis / Cep: 14165-416"
             placeholderTextColor="#999"
             style={styles.input}
           />
         </View>
-        <TouchableOpacity style={styles.viewInput}>
-          <Image style={styles.plusButton} source={PlusButton} />
-        </TouchableOpacity>
       </View>
     )
   }
 }
 const styles = StyleSheet.create({
-
   container: {
     display: 'flex',
     flexDirection: 'row',
-    width,
-    height: 50,
-    padding: 5
+    height: 80,
+    paddingBottom: 15,
+    paddingTop: 15,
+    justifyContent: 'space-around',
+    padding: 5,
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    elevation: 8,
+    shadowOpacity: 0.1,
   },
   logo: {
     padding: 5,
-    width: 50,
-    height: 50
+    width: 45,
+    height: 45
   },
   plusButton: {
     width: 35,
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    width: width * 0.8,
+    width: width * 0.7,
     height: 35,
     backgroundColor: '#fff',
     borderWidth: 1,
