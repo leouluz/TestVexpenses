@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Text, View, ScrollView,
   StyleSheet, TextInput,
@@ -9,11 +9,28 @@ import api from '../services/api'
 
 const { width } = Dimensions.get('window')
 
+
 export default function createContact() {
 
-  api.get("/users/leouluz").then((response) => {
-    console.log(response)
-  })
+  const [cep, setCep] = useState('')
+  const [address, setAddress] = useState('')
+  const [district, setDistrict] = useState('')
+  const [city, setCity] = useState('')
+  const [name, setName] = useState('')
+  const [numberPhone, setNumberPhone] = useState('')
+  const [email, setEmail] = useState('')
+  const [number, setNumber] = useState('')
+
+  async function getUser() {
+    try {
+      const response = await api.get(`/14165416/json`);
+      setAddress(response.data.logradouro)
+      setDistrict(response.data.bairro)
+      setCity(response.data.localidade)
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -24,48 +41,71 @@ export default function createContact() {
       <ScrollView style={styles.scroll}>
         <View style={styles.inputBox}>
           <TextInput
+            name="name"
             placeholder="Nome do contato"
             placeholderTextColor="#999"
             style={styles.input}
+            value={name}
           />
           <TextInput
+            name="numberPhone"
             placeholder="Telefone do contato"
             placeholderTextColor="#999"
             style={styles.input}
             keyboardType="decimal-pad"
-
+            value={numberPhone}
           />
           <TextInput
+            name="email"
             placeholder="Email do contato"
             placeholderTextColor="#999"
             style={styles.input}
             keyboardType="email-address"
+            value={email}
           />
           <TextInput
+            name="cep"
             placeholder="CEP - Opcional"
             placeholderTextColor="#999"
             style={styles.input}
             keyboardType="decimal-pad"
+            value={cep}
           />
           <TextInput
+            name="address"
             placeholder="Rua/Av.São Almeida"
             placeholderTextColor="#999"
             style={styles.input}
+            value={address}
           />
           <View style={styles.inputAddress}>
             <TextInput
+              name="number"
               placeholder="nº47"
               placeholderTextColor="#999"
               style={styles.input}
               keyboardType="decimal-pad"
+              value={number}
             />
             <TextInput
+              name="district"
               placeholder="Bairro"
               placeholderTextColor="#999"
               style={styles.input}
+              value={district}
             />
           </View>
-          <TouchableOpacity style={styles.button} >
+          <TextInput
+            name="city"
+            placeholder="Cidade: São Paulo"
+            placeholderTextColor="#999"
+            style={styles.input}
+            value={city}
+          />
+          <TouchableOpacity
+            style={styles.button}
+            onPress={getUser}
+          >
             <Text style={styles.textSave}>SALVAR</Text>
           </TouchableOpacity>
 
