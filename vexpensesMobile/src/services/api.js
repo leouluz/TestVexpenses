@@ -1,7 +1,7 @@
-const axios = require('axios');
+const axios = require('axios').default;
 
 const instance = axios.create({
-  baseUrl: "https://api.github.com"
+  baseURL: "https://viacep.com.br/ws"
 })
 
 export default instance;
