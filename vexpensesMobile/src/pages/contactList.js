@@ -75,7 +75,11 @@ export default function contactList() {
       <StatusBar />
       <Header />
       <View style={styles.contactList}>
-        <FlatList data={DATA} renderItem={renderItem} keyExtractor={item => item.id} />
+        <FlatList
+          data={DATA}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+        />
       </View>
     </>
   )

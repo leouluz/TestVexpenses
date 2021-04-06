@@ -8,8 +8,14 @@ export default function (props) {
         <View style={styles.imgLetter}>
           <Text style={styles.fontImg}>{props.item.letter}</Text>
         </View>
-        <Text style={styles.nameText}>{props.item.name}</Text>
-        <Text style={styles.numberText} >{props.item.phoneNumber}</Text>
+        <View>
+          <Text style={styles.nameText}>{props.item.name}</Text>
+          <Text style={styles.nameText}>Rua.avenidatal</Text>
+        </View>
+        <View>
+          <Text style={styles.numberText} >{props.item.phoneNumber}</Text>
+          <Text style={styles.numberText} >CEP:14165-416</Text>
+        </View>
       </View>
     </View>
   )
@@ -38,7 +44,7 @@ const styles = StyleSheet.create({
   imgLetter: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#000',
+    backgroundColor: '#1bbfdb',
     height: 50,
     width: 50,
     borderRadius: 50
