@@ -46,6 +46,7 @@ export default function createContact() {
             placeholderTextColor="#999"
             style={styles.input}
             value={name}
+            onChangeText={setName}
           />
           <TextInput
             name="numberPhone"
@@ -54,6 +55,7 @@ export default function createContact() {
             style={styles.input}
             keyboardType="decimal-pad"
             value={numberPhone}
+            onChangeText={setNumberPhone}
           />
           <TextInput
             name="email"
@@ -62,6 +64,7 @@ export default function createContact() {
             style={styles.input}
             keyboardType="email-address"
             value={email}
+            onChangeText={setEmail}
           />
           <TextInput
             name="cep"
@@ -70,6 +73,7 @@ export default function createContact() {
             style={styles.input}
             keyboardType="decimal-pad"
             value={cep}
+            onChangeText={setCep}
           />
           <TextInput
             name="address"
@@ -77,6 +81,7 @@ export default function createContact() {
             placeholderTextColor="#999"
             style={styles.input}
             value={address}
+            onChangeText={setAddress}
           />
           <View style={styles.inputAddress}>
             <TextInput
@@ -86,6 +91,7 @@ export default function createContact() {
               style={styles.input}
               keyboardType="decimal-pad"
               value={number}
+              onChangeText={setNumber}
             />
             <TextInput
               name="district"
@@ -93,6 +99,7 @@ export default function createContact() {
               placeholderTextColor="#999"
               style={styles.input}
               value={district}
+              onChangeText={setDistrict}
             />
           </View>
           <TextInput
@@ -101,6 +108,7 @@ export default function createContact() {
             placeholderTextColor="#999"
             style={styles.input}
             value={city}
+            onChangeText={setCity}
           />
           <TouchableOpacity
             style={styles.button}
