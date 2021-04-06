@@ -1,8 +1,36 @@
-import React from 'react'
-import { StyleSheet, View, TextInput, Text, Image, TouchableOpacity } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { StyleSheet, View, TextInput, Text, Image, TouchableOpacity, Alert } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import api from '../services/Api'
+
 import Logo from '../img/logoC.png'
 
 export default function login({ navigation }) {
+
+  const [userName, setUserName] = useState('')
+
+  useEffect(() => {
+    AsyncStorage.getItem('user').then(user => {
+      if (user) {
+        navigation.navigate('Home')
+      }
+    })
+  }, [])
+
+  async function handlerSubmit() {
+
+    const response = await api.post('/sessions', {
+      userName
+    })
+    const { _id } = response.data
+
+    await AsyncStorage.setItem('user', _id)
+
+    navigation.navigate('Home')
+  }
+
+
   return (
     <View style={styles.container}>
       <Image source={Logo} style={styles.logo} />
@@ -15,10 +43,12 @@ export default function login({ navigation }) {
         placeholder="Ex: Matheus_01"
         placeholderTextColor="#999"
         style={styles.input}
+        value={userName}
+        onChangeText={setUserName}
       />
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('Home')}
+        onPress={handlerSubmit}
       >
         <Text style={styles.textButton}>Acessar</Text>
       </TouchableOpacity>

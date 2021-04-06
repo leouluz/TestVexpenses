@@ -2,15 +2,21 @@ import React, { useState, useEffect } from 'react'
 import {
   Text, View, ScrollView,
   StyleSheet, TextInput,
-  Dimensions, TouchableOpacity, Image
+  Dimensions, TouchableOpacity,
+  Image, Alert
 } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
+import ApiCep from '../services/ApiCep'
+import api from '../services/Api'
+
 import Logo from '../img/logoC.png'
-import api from '../services/api'
 
 const { width } = Dimensions.get('window')
 
 
-export default function createContact() {
+export default function createContact({ navigation }) {
 
   const [cep, setCep] = useState('')
   const [address, setAddress] = useState('')
@@ -21,9 +27,37 @@ export default function createContact() {
   const [email, setEmail] = useState('')
   const [number, setNumber] = useState('')
 
-  async function getUser() {
+  async function handlerSubmit() {
+
+    const user_id = await AsyncStorage.getItem('user')
+    const response = await api.post('/createContact', {
+      cep: cep,
+      address: address,
+      district: district,
+      city: city,
+      name: name,
+      number: number,
+      numberPhone: numberPhone,
+    }, {
+      headers: { user_id }
+    })
+
+    Alert.alert(
+      "Criação de Contato",
+      "Usuario Salvo com sucesso",
+      [
+        { text: "OK", onPress: () => navigation.navigate('Contatos') }
+      ],
+      { cancelable: false }
+    );
+
+
+  }
+
+
+  async function getCep() {
     try {
-      const response = await api.get(`/14165416/json`);
+      const response = await ApiCep.get(`/${cep}/json`);
       setAddress(response.data.logradouro)
       setDistrict(response.data.bairro)
       setCity(response.data.localidade)
@@ -56,6 +90,8 @@ export default function createContact() {
             keyboardType="decimal-pad"
             value={numberPhone}
             onChangeText={setNumberPhone}
+            maxLength={11}
+
           />
           <TextInput
             name="email"
@@ -74,6 +110,7 @@ export default function createContact() {
             keyboardType="decimal-pad"
             value={cep}
             onChangeText={setCep}
+            onBlur={getCep}
           />
           <TextInput
             name="address"
@@ -112,7 +149,7 @@ export default function createContact() {
           />
           <TouchableOpacity
             style={styles.button}
-            onPress={getUser}
+            onPress={handlerSubmit}
           >
             <Text style={styles.textSave}>SALVAR</Text>
           </TouchableOpacity>

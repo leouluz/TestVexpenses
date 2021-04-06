@@ -1,7 +1,7 @@
 const axios = require('axios').default;
 
-const instance = axios.create({
-  baseURL: "https://viacep.com.br/ws"
+const api = axios.create({
+  baseURL: "http://192.168.18.3:3000"
 })
 
-export default instance;
+export default api;

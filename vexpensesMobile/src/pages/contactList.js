@@ -1,73 +1,22 @@
-import React from 'react'
-import { StyleSheet, StatusBar, FlatList, View } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { StyleSheet, StatusBar, FlatList, View, Text, TouchableOpacity } from 'react-native'
 import Header from '../components/header'
 import Contact from '../components/contact'
 
-const DATA = [
-  {
-    id: '1',
-    letter: 'L',
-    name: 'Leonardo',
-    phoneNumber: '(16) 9 9999-9999',
-  },
-  {
-    id: '2',
-    letter: 'L',
-    name: 'Luis',
-    phoneNumber: '(16) 9 9999-9999',
-  },
-  {
-    id: '3',
-    letter: 'L',
-    name: 'Lucas',
-    phoneNumber: '(16) 9 9999-9999',
-  },
-  {
-    id: '4',
-    letter: 'P',
-    name: 'Paola',
-    phoneNumber: '(16) 9 9999-9999',
-  },
-  {
-    id: '5',
-    letter: 'S',
-    name: 'Sergio',
-    phoneNumber: '(16) 9 9999-9999',
-  },
-  {
-    id: '6',
-    letter: 'F',
-    name: 'Fernando',
-    phoneNumber: '(16) 9 9999-9999',
-  },
-  {
-    id: '7',
-    letter: 'G',
-    name: 'Gustavo',
-    phoneNumber: '(16) 9 9999-9999',
-  },
-  {
-    id: '8',
-    letter: 'C',
-    name: 'Catia',
-    phoneNumber: '(16) 9 9999-9999',
-  },
-  {
-    id: '9',
-    letter: 'P',
-    name: 'Pedro',
-    phoneNumber: '(16) 9 9999-9999',
-  },
-  {
-    id: '10',
-    letter: 'A',
-    name: 'Alessandro',
-    phoneNumber: '(16) 9 9999-9999',
-  },
+import api from '../services/Api'
 
-];
 
 export default function contactList() {
+  let [infoList, setInfoList] = useState([])
+
+  useEffect(() => {
+    async function loadContact() {
+      const response = await api.get('/index')
+      setInfoList(response.data)
+    }
+    loadContact()
+  }, [])
+
   const renderItem = ({ item }) => <Contact item={item} />;
 
   return (
@@ -76,9 +25,9 @@ export default function contactList() {
       <Header />
       <View style={styles.contactList}>
         <FlatList
-          data={DATA}
+          data={infoList}
+          keyExtractor={contact => infoList._id}
           renderItem={renderItem}
-          keyExtractor={item => item.id}
         />
       </View>
     </>

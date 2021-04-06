@@ -10,11 +10,11 @@ export default function (props) {
         </View>
         <View>
           <Text style={styles.nameText}>{props.item.name}</Text>
-          <Text style={styles.nameText}>Rua.avenidatal</Text>
+          <Text style={styles.nameText}>{props.item.address}</Text>
         </View>
         <View>
           <Text style={styles.numberText} >{props.item.phoneNumber}</Text>
-          <Text style={styles.numberText} >CEP:14165-416</Text>
+          <Text style={styles.numberText} >{props.item.cep}</Text>
         </View>
       </View>
     </View>
